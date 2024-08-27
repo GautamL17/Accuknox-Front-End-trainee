@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {WidgetProvider,useWidgetContext} from '../WidgetsContext'
-
+import 'boxicons'
 const Dashboards = () => {
   const { state, dispatch } = useWidgetContext();
   const [window, setWindow] = useState(false);
@@ -60,6 +60,7 @@ const Dashboards = () => {
   const handleCancel = () => {
     setNewTitle('');
     setNewContent('');
+    if(checkedItems.length)
     handleCloseSidebar();
   };
 
@@ -93,9 +94,10 @@ const Dashboards = () => {
   return (
     <>
       <div className='w-full'>
-        <div className="mt-10 m-auto px-2 mb-10">
+        <div className="mb-10 ">
           {/* Search Bar */}
-          <div className="mb-4 px-2">
+          <div className="flex px-3 items-center self-center py-2 justify-between gap-10 bg-blue-900 ">
+          <div className="w-[50%]">
             <input
               type="text"
               placeholder="Search widgets..."
@@ -104,8 +106,12 @@ const Dashboards = () => {
               className="border p-2 w-full rounded-md"
             />
           </div>
+          <div className="">
+          <button className="text-blue-900 font-semibold bg-white  text-sm px-2 py-1 border-2 rounded-md " onClick={handleOpenSideBar}>+ Add Widget</button>
+          </div>
+          </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-1 px-2 font-sans">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 py-1 px-3 font-sans">
             {title.map((category, groupIndex) => (
               <div key={groupIndex} className="col-span-full">
                 <div className="font-bold text-lg mb-4">{category}</div>
@@ -118,8 +124,8 @@ const Dashboards = () => {
                       </div>
                     )
                   ))}
-                  <div className="flex justify-center items-center w-full h-[150px] bg-gray-50 rounded-lg shadow-md">
-                    <button className="text-gray-400 text-sm px-2 py-1 border-2 border-zinc-300 rounded-md" onClick={handleOpenSideBar}>+ Add Widget</button>
+                  <div className="flex justify-center items-center w-full h-[150px] bg-gray-50  rounded-lg shadow-md">
+                    <button className="text-blue-900 text-sm px-2 py-1 border-2 border-blue-900 font-semibold rounded-md hover:bg-blue-900 hover:border-none hover:text-white" onClick={handleOpenSideBar}>+ Add Widget</button>
                   </div>
                 </div>
               </div>
@@ -139,7 +145,7 @@ const Dashboards = () => {
             Add Widget
           </div>
           <button onClick={handleCloseSidebar} className={`${window ? 'w-10 h-10' : 'w-0 h-0'} absolute right-0 bg-blue-900 text-white`}>
-            X
+          <box-icon name='x' color='#fffefe' ></box-icon>
           </button>
         </div>
         <p className='pt-14 pl-2 pb-5 overflow-hidden'>Personalize your dashboard by adding the following widget</p>
@@ -156,7 +162,7 @@ const Dashboards = () => {
         {title.map((category, groupIndex) => (
           <div key={groupIndex} className={`mt-4`}>
             {(state[category] || []).map((item) => (
-              <div key={item.key} className={`flex gap-5 ml-2 text-blue ${activeIndex === groupIndex ? '' : 'hidden'}`}>
+              <div key={item.key} className={`flex gap-5 ml-3 text-blue ${activeIndex === groupIndex ? '' : 'hidden'}`}>
                 <input
                   className='accent-blue-900'
                   type="checkbox"
@@ -173,19 +179,19 @@ const Dashboards = () => {
           <h2 className="text-lg font-semibold">Add New Widget</h2>
           <label className="mt-4">Title</label>
           <textarea
-            className='border w-full h-10 p-2 mt-2 active:border-blue-200'
+            className='w-full p-2 mt-2 active:border-blue-200 outline-none  border-2 h-10 border-blue-900'
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
           />
           <label className="mt-4">Content</label>
           <textarea
-            className='border w-full h-20 p-2 mt-2 active:border-blue-200'
+            className='w-full h-20 p-2 mt-2 active:border-blue-200 outline-none  border-2 border-blue-900'
             value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
           />
           <div className="flex justify-between w-[20%] mt-4">
-            <button onClick={handleCancel} className="px-4 py-2 bg-red-500 text-white rounded-md">Cancel</button>
-            <button onClick={handleConfirm} className="px-4 py-2 bg-blue-500 text-white rounded-md">Confirm</button>
+            <button onClick={handleCancel} className="px-2 py-1 border-blue-900 text-blue-900 border-2 rounded-md">Cancel</button>
+            <button onClick={handleConfirm} className="px-2 py-1 bg-blue-900 text-white rounded-md">Confirm</button>
           </div>
         </div>
 
